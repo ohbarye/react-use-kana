@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "lib": ["es6", "dom"],
+    "module": "es6",
+    "moduleResolution": "node",
+    "noImplicitReturns": true,
+    // `strict` enables noImplicitAny, noImplicitThis, alwaysStrict,
+    // strictNullChecks and strictFunctionTypes at once
+    "strict": true,
+    "target": "es5",
+    "pretty": true
+  },
+  "exclude": ["node_modules", "example", "**/*-spec.ts"]
+}
