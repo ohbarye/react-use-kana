@@ -1,0 +1,45 @@
+
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+*.tmp
+.idea
+
+# OS or Editor folders
+.DS_Store
+.cache
+.project
+.settings
+.tmproj
+nbproject
+Thumbs.db
+.agignore
+
+# https://raw.githubusercontent.com/github/gitignore/master/Global/VisualStudioCode.gitignore
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+node_modules/
+tmp/
+coverage/
+.env
+.bundle/
+build/
+!src/@types/react-pdf/build/
+storybook
+src/assets/sprite.svg
+junit.xml
+.idea
+.rpt2_cache/
+dist/
