@@ -20,6 +20,8 @@
   "author": "ohbarye <over.rye@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "eslint": "eslint \"src/**/*.{ts,tsx}\"",
+    "eslint:fix": "eslint --fix \"src/**/*.{ts,tsx}\"",
     "prepublish": "yarn build",
     "build": "rollup -c",
     "watch": "rollup -cw",
