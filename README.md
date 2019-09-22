@@ -1,4 +1,4 @@
-# React Use Kana
+# React Use Kana [![npm version](https://badge.fury.io/js/react-use-kana.svg)](https://badge.fury.io/js/react-use-kana)  [![CircleCI](https://circleci.com/gh/ohbarye/react-use-kana/tree/master.svg?style=svg)](https://circleci.com/gh/ohbarye/react-use-kana/tree/master)
 
 A tiny React hook to build a better Japanese form. With this library, you can implement a feature to automatically fill in kana in your form.
 
