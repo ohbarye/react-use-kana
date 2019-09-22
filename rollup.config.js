@@ -9,7 +9,5 @@ export default {
       format: 'esm',
     },
   ],
-  plugins: [
-    typescript(),
-  ]
-}
+  plugins: [typescript()],
+};
