@@ -1,4 +1,4 @@
-# React Kana Provider
+# React Use Kana
 
 A tiny React hook to build a better Japanese form. With this library, you can implement a feature to automatically fill in kana in your form.
 
