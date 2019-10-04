@@ -2,14 +2,9 @@ import { renderHook, act } from '@testing-library/react-hooks';
 import { useKana } from '../useKana';
 
 test('returns kana based on user input', () => {
-  const { result } = renderHook(() =>
-    useKana(['lastNameKana', 'firstNameKana']),
-  );
+  const { result } = renderHook(() => useKana());
 
-  expect(result.current.kana).toEqual({
-    lastNameKana: '',
-    firstNameKana: '',
-  });
+  expect(result.current.kana).toEqual('');
 
   // Emulates to input a user's last name
   [
@@ -24,38 +19,10 @@ test('returns kana based on user input', () => {
   ].forEach(value => {
     act(() => {
       result.current.setKanaSource({
-        fieldName: 'lastNameKana',
-        inputtedValue: value,
+        value,
       });
     });
   });
 
-  expect(result.current.kana).toEqual({
-    lastNameKana: 'やまだい',
-    firstNameKana: '',
-  });
-
-  // Emulates to input a user's first name
-  [
-    'け',
-    'けｎ',
-    'けんｔ',
-    'けんた',
-    'けんたｒ',
-    'けんたろ',
-    'けんたろう',
-    '健太郎',
-  ].forEach(value => {
-    act(() => {
-      result.current.setKanaSource({
-        fieldName: 'firstNameKana',
-        inputtedValue: value,
-      });
-    });
-  });
-
-  expect(result.current.kana).toEqual({
-    lastNameKana: 'やまだい',
-    firstNameKana: 'けんたろう',
-  });
+  expect(result.current.kana).toEqual('やまだい');
 });
