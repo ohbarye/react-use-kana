@@ -3,7 +3,14 @@ import * as ReactDOM from 'react-dom';
 import { useKana } from 'react-use-kana';
 
 const App = () => {
-  const { kana, setKanaSource } = useKana(['first_name', 'last_name']);
+  const {
+    kana: lastNameKana,
+    setKanaSource: setLastNameKanaSource,
+  } = useKana();
+  const {
+    kana: firstNameKana,
+    setKanaSource: setFirstNameKanaSource,
+  } = useKana();
   return (
     <form>
       <div>
@@ -13,15 +20,21 @@ const App = () => {
         <div>
           <span>Name</span>
         </div>
-        <NameField fieldName="last_name" setKanaSource={setKanaSource} />
-        <NameField fieldName="first_name" setKanaSource={setKanaSource} />
+        <NameField
+          fieldName="last_name"
+          setKanaSource={setLastNameKanaSource}
+        />
+        <NameField
+          fieldName="first_name"
+          setKanaSource={setFirstNameKanaSource}
+        />
       </div>
       <div>
         <div>
           <span>Name Kana</span>
         </div>
-        <NameKanaField fieldName="last_name_kana" kana={kana['last_name']} />
-        <NameKanaField fieldName="first_name_kana" kana={kana['first_name']} />
+        <NameKanaField fieldName="last_name_kana" kana={lastNameKana} />
+        <NameKanaField fieldName="first_name_kana" kana={firstNameKana} />
       </div>
     </form>
   );
@@ -32,7 +45,7 @@ const NameField = ({
   setKanaSource,
 }: {
   fieldName: string;
-  setKanaSource: (arg: { fieldName: string; inputtedValue: string }) => void;
+  setKanaSource: (arg: { value: string }) => void;
 }) => {
   const [value, setValue] = React.useState('');
 
@@ -42,7 +55,7 @@ const NameField = ({
       value={value}
       onChange={e => {
         setValue(e.target.value);
-        setKanaSource({ fieldName, inputtedValue: e.target.value });
+        setKanaSource({ value: e.target.value });
       }}
       placeholder={fieldName}
     />
