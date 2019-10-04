@@ -1,4 +1,4 @@
-# React Use Kana [![npm version](https://badge.fury.io/js/react-use-kana.svg)](https://badge.fury.io/js/react-use-kana)  [![CircleCI](https://circleci.com/gh/ohbarye/react-use-kana/tree/master.svg?style=svg)](https://circleci.com/gh/ohbarye/react-use-kana/tree/master)
+# React Use Kana [![npm version](https://badge.fury.io/js/react-use-kana.svg)](https://badge.fury.io/js/react-use-kana) [![CircleCI](https://circleci.com/gh/ohbarye/react-use-kana/tree/master.svg?style=svg)](https://circleci.com/gh/ohbarye/react-use-kana/tree/master)
 
 A tiny React hook to build a better Japanese form. With this library, you can implement a feature to automatically fill in kana in your form.
 
@@ -24,10 +24,7 @@ import ReactDOM from 'react-dom';
 import { useKana } from 'react-use-kana';
 
 const App = () => {
-  const {
-    kana: { lastNameKana },
-    setKanaSource,
-  } = useKana(['lastNameKana']);
+  const { kana, setKanaSource } = useKana();
 
   return (
     <form>
@@ -42,8 +39,7 @@ const App = () => {
           type="text"
           onChange={e =>
             setKanaSource({
-              fieldName: 'lastNameKana',
-              inputtedValue: e.target.value,
+              value: e.target.value,
             })
           }
         />
@@ -52,7 +48,7 @@ const App = () => {
         <div>
           <span>Name Kana</span>
         </div>
-        <input type="text" value={lastNameKana} />
+        <input type="text" value={kana} />
       </div>
     </form>
   );
