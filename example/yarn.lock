@@ -4236,7 +4236,7 @@ react-is@^16.8.1:
   integrity sha512-tJBzzzIgnnRfEm046qRcURvwQnZVXmuCbscxUO5RWrGTXpon2d4c8mI0D8WE6ydVIm29JiLB6+RslkIvym9Rjw==
 
 react-use-kana@../:
-  version "1.0.0"
+  version "2.0.0"
 
 react@^16.9.0:
   version "16.10.2"
