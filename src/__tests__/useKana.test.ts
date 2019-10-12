@@ -8,9 +8,7 @@ describe('when several kanas are converted to kanjis at once', () => {
     expect(result.current.kana).toEqual('');
     ['や', 'やｍ', 'やま', 'やまｄ', 'やまだ', '山田'].forEach(value => {
       act(() => {
-        result.current.setKanaSource({
-          value,
-        });
+        result.current.setKanaSource(value);
       });
     });
     expect(result.current.kana).toEqual('やまだ');
@@ -24,9 +22,7 @@ describe('when kanas are converted to kanjis one by one', () => {
     expect(result.current.kana).toEqual('');
     ['や', 'やｍ', 'やま', '山', '山ｄ', '山だ', '山田'].forEach(value => {
       act(() => {
-        result.current.setKanaSource({
-          value,
-        });
+        result.current.setKanaSource(value);
       });
     });
     expect(result.current.kana).toEqual('やまだ');
@@ -42,9 +38,7 @@ describe('when kanas are converted to kanjis one by one', () => {
     ['や', 'やｍ', 'やま', '山', '山ｄ', '山だ', '山田', '山打'].forEach(
       value => {
         act(() => {
-          result.current.setKanaSource({
-            value,
-          });
+          result.current.setKanaSource(value);
         });
       },
     );
@@ -60,9 +54,7 @@ describe('when kanas are converted to katakana', () => {
     ['ｋ', 'く', 'くｒ', 'くり', 'くりｓ', 'くりす', 'クリス'].forEach(
       value => {
         act(() => {
-          result.current.setKanaSource({
-            value,
-          });
+          result.current.setKanaSource(value);
         });
       },
     );
@@ -77,9 +69,7 @@ describe('when conversion happened from head', () => {
     expect(result.current.kana).toEqual('');
     ['ｄ', 'だ', '田', 'い田', 'いい田', '飯田'].forEach(value => {
       act(() => {
-        result.current.setKanaSource({
-          value,
-        });
+        result.current.setKanaSource(value);
       });
     });
     expect(result.current.kana).toEqual('いいだ');
@@ -94,9 +84,7 @@ describe('when a full-width space between characters is given', () => {
     ['ｒ', 'り', '李', '李', '李　', '李　あ', '李　あい', '李　愛'].forEach(
       value => {
         act(() => {
-          result.current.setKanaSource({
-            value,
-          });
+          result.current.setKanaSource(value);
         });
       },
     );
@@ -112,9 +100,7 @@ describe('when a half-width space between characters is given', () => {
     ['ｒ', 'り', '李', '李', '李 ', '李 あ', '李 あい', '李 愛'].forEach(
       value => {
         act(() => {
-          result.current.setKanaSource({
-            value,
-          });
+          result.current.setKanaSource(value);
         });
       },
     );
@@ -139,9 +125,7 @@ describe('when a half-width space between characters is given', () => {
       '李  愛',
     ].forEach(value => {
       act(() => {
-        result.current.setKanaSource({
-          value,
-        });
+        result.current.setKanaSource(value);
       });
     });
     expect(result.current.kana).toEqual('り  あい');

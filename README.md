@@ -14,6 +14,17 @@ npm install react-use-kana
 yarn add react-use-kana
 ```
 
+### API
+
+#### `useKana`
+
+This is the only one hook that `react-use-kana` provides.
+
+- `kana: string`
+  - A hiragana string that derived from inputs. You set this value to a text input for a kana field.
+- `setKanaSource: (value: string) => void`
+  - A function to let `useKana` hook know a new input value so that it can derive `kana`. In general, you call this function as `onClick` callback of a text input for a name field which probably has kanjis or non-hiragana characters.
+
 ### Example
 
 Let's see the following simple example.
@@ -35,14 +46,7 @@ const App = () => {
         <div>
           <span>Name</span>
         </div>
-        <input
-          type="text"
-          onChange={e =>
-            setKanaSource({
-              value: e.target.value,
-            })
-          }
-        />
+        <input type="text" onChange={e => setKanaSource(e.target.value)} />
       </div>
       <div>
         <div>

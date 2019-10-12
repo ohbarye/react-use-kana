@@ -116,7 +116,7 @@ const convertCharGroupsToKana = (
 
 export const useKana = (): {
   kana: string;
-  setKanaSource: ({ value }: { value: string }) => void;
+  setKanaSource: (value: string) => void;
 } => {
   // used by library users
   const [kana, setKana] = useState<string>('');
@@ -124,7 +124,7 @@ export const useKana = (): {
   const [previousCharGroups, setPreviousCharGroups] = useState<string[]>([]);
   const [kanaMap, setKanaMap] = useState<KanaMap>({});
 
-  const setKanaSource = ({ value }: { value: string }): void => {
+  const setKanaSource = (value: string): void => {
     if (value === '') {
       setKana('');
       setKanaMap({});
