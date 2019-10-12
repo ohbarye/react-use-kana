@@ -38,6 +38,7 @@
     "react": ">=16.8"
   },
   "devDependencies": {
+    "@babel/core": "^7.6.4",
     "@testing-library/react-hooks": "^2.0.1",
     "@types/historykana": "^1.0.0",
     "@types/jest": "^24.0.18",
@@ -45,6 +46,7 @@
     "@types/react-test-renderer": "^16.9.0",
     "@typescript-eslint/eslint-plugin": "^2.3.0",
     "@typescript-eslint/parser": "^2.3.0",
+    "babel-jest": "^24.9.0",
     "eslint": "^6.4.0",
     "eslint-config-prettier": "^6.3.0",
     "eslint-plugin-jest": "^22.17.0",
