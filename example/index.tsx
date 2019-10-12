@@ -45,7 +45,7 @@ const NameField = ({
   setKanaSource,
 }: {
   fieldName: string;
-  setKanaSource: (arg: { value: string }) => void;
+  setKanaSource: (value: string) => void;
 }) => {
   const [value, setValue] = React.useState('');
 
@@ -55,7 +55,7 @@ const NameField = ({
       value={value}
       onChange={e => {
         setValue(e.target.value);
-        setKanaSource({ value: e.target.value });
+        setKanaSource(e.target.value);
       }}
       placeholder={fieldName}
     />
