@@ -33,9 +33,7 @@
     "prettier": "prettier --list-different \"src/**/*.{ts,tsx}\"",
     "prettier:fix": "prettier --write \"src/**/*.{ts,tsx}\""
   },
-  "dependencies": {
-    "historykana": "^1.0.4"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "react": ">=16.8"
   },
