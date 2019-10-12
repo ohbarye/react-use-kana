@@ -66,7 +66,6 @@ ReactDOM.render(<App />, document.getElementById('root'));
 This library uses:
 
 - [React Hooks](https://reactjs.org/docs/hooks-intro.html)
-- [historykana](https://github.com/terrierscript/historykana) (Many thanks to @terrierscript)
 
 ## Requirement
 
