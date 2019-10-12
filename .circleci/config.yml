@@ -18,7 +18,7 @@ workflows:
 jobs:
   bundle_npm_dependencies:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
     working_directory: ~/react-use-kana
     steps:
       - checkout
@@ -37,7 +37,7 @@ jobs:
 
   test:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
     working_directory: ~/react-use-kana
     steps:
       - checkout
@@ -52,7 +52,7 @@ jobs:
 
   lint:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
     working_directory: ~/react-use-kana
     steps:
       - checkout
@@ -71,7 +71,7 @@ jobs:
 
   typecheck:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
     working_directory: ~/react-use-kana
     steps:
       - checkout
