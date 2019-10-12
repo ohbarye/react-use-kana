@@ -30,5 +30,7 @@ module.exports = {
     },
   },
   globals: {},
-  rules: {},
+  rules: {
+    'no-irregular-whitespace': ['error', { skipRegExps: true }],
+  },
 };
