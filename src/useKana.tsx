@@ -10,8 +10,7 @@ interface Diff {
 }
 
 interface KanaPair {
-  nonKana: string;
-  kana: string;
+  [key: string]: string;
 }
 
 const KANA_REGEX = /([ 　ぁあ-んー]+)/g;
@@ -36,21 +35,15 @@ const extractDiff = (from: string[], to: string[]): Diff => {
   return { added, removed };
 };
 
-const extractPair = ({ added, removed }: Diff): KanaPair | undefined => {
-  if (
-    added.length === 1 &&
-    removed.length === 1 &&
-    isNonKana(added[0]) &&
-    isKana(removed[0])
-  ) {
+const extractPairFromDiff = ({ added, removed }: Diff): KanaPair => {
+  if (added.length === 1 && removed.length === 1 && isNonKana(added[0]) && isKana(removed[0])) {
     // given
     //   added: ['山田']
     //   removed: ['やまだ']
     // then
     //   paid is { '山田': 'やまだ' }
     return {
-      nonKana: added[0],
-      kana: removed[0],
+      [added[0]]: removed[0],
     };
   } else if (removed.length === 2 && added.length === 1) {
     // given
@@ -64,51 +57,48 @@ const extractPair = ({ added, removed }: Diff): KanaPair | undefined => {
     //   removed: ['やま', '田']
     // then
     //   pair is { '山': 'やま' }
-    const nonKana = added[0].replace(
-      new RegExp(`${removed.join('|')}`, 'g'),
-      '',
-    );
+    const nonKana = added[0].replace(new RegExp(`${removed.join('|')}`, 'g'), '');
     const kana = removed.find(isKana) as string;
     return {
-      nonKana,
-      kana,
+      [nonKana]: kana,
     };
   } else {
-    return;
+    return {};
   }
 };
 
-// Create a map that contains pairs of non-kana and kana
-const createMap = (
-  kanaMap: KanaMap,
-  previousCharGroups: string[],
+const findPair = (
+  charGroupsCandidates: string[][],
   currentCharGroups: string[],
-): KanaMap => {
-  const diff = extractDiff(previousCharGroups, currentCharGroups);
-  const pair = extractPair(diff);
-  if (pair) {
-    return {
-      ...kanaMap,
-      [pair.nonKana]: pair.kana,
-    };
+  setLastConvertedCharGroups: (charGroups: string[]) => void,
+): KanaPair => {
+  const [previousCharGroups, ...tail] = charGroupsCandidates;
+  if (!previousCharGroups) {
+    return {};
+  }
+  const pair = extractPairFromDiff(extractDiff(previousCharGroups, currentCharGroups));
+
+  if (Object.keys(pair).length !== 0) {
+    // If a pair of non-kana and kana is found, memoize it for later comparison.
+    // This is for a case when a user convert an input from kana to non-kana to non-kana.
+    // e.g. 'た' => '多' => '田' . In this case, it needs to store 'た' when making pair of { '多': 'た' }
+    //      for the next making pair of { '田': 'た' }
+    setLastConvertedCharGroups(previousCharGroups);
+    return pair;
   } else {
-    return { ...kanaMap };
+    // The first trial to find pair (between the latest input and the 2nd latest input) fails,
+    // it retries once more by using `lastConvertedCharGroups`.
+    return findPair(tail, currentCharGroups, setLastConvertedCharGroups);
   }
 };
 
-const convertCharGroupsToKana = (
-  kanaMap: KanaMap,
-  charGroups: string[],
-): string => {
+const convertCharGroupsToKana = (kanaMap: KanaMap, charGroups: string[]): string => {
   const knownNonKanas = Object.keys(kanaMap);
   return charGroups
     .map(chars => {
       return knownNonKanas
         .filter(knownNonKana => chars.indexOf(knownNonKana) >= 0)
-        .reduce(
-          (memo, nonKana) => memo.replace(nonKana, kanaMap[nonKana]),
-          chars,
-        );
+        .reduce((memo, nonKana) => memo.replace(nonKana, kanaMap[nonKana]), chars);
     })
     .filter(isKana)
     .join('');
@@ -120,28 +110,28 @@ export const useKana = (): {
 } => {
   // used by library users
   const [kana, setKana] = useState<string>('');
+
   // library internal use
   const [previousCharGroups, setPreviousCharGroups] = useState<string[]>([]);
+  const [lastConvertedCharGroups, setLastConvertedCharGroups] = useState<string[]>([]);
   const [kanaMap, setKanaMap] = useState<KanaMap>({});
 
   const setKanaSource = (value: string): void => {
     if (value === '') {
+      // If a user inputs nothing, reset everything
       setKana('');
       setKanaMap({});
       setPreviousCharGroups([]);
     } else {
       const currentCharGroups = splitIntoCharGroups(value);
-      const kanaMapDup = createMap(
-        kanaMap,
-        previousCharGroups,
-        currentCharGroups,
-      );
-      const currentKana = convertCharGroupsToKana(
-        kanaMapDup,
-        currentCharGroups,
-      );
+      // Create kana map that contains pairs of non-kana and kana based on the original map
+      const latestKanaMap = {
+        ...kanaMap,
+        ...findPair([previousCharGroups, lastConvertedCharGroups], currentCharGroups, setLastConvertedCharGroups),
+      };
+      const currentKana = convertCharGroupsToKana(latestKanaMap, currentCharGroups);
       setKana(currentKana);
-      setKanaMap(kanaMapDup);
+      setKanaMap(latestKanaMap);
       setPreviousCharGroups(currentCharGroups);
     }
   };
