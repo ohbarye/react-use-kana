@@ -112,3 +112,29 @@ describe('when a half-width space between characters is given', () => {
     expect(result.current.kana).toEqual('り  あい');
   });
 });
+
+describe.skip('when converted to strings with kana and non-kana both', () => {
+  test('returns kana based on user input', () => {
+    const { result } = renderHook(() => useKana());
+
+    expect(result.current.kana).toEqual('');
+    ['あ', 'あい', 'あいう', '亜い卯'].forEach(value => {
+      act(() => {
+        result.current.setKanaSource(value);
+      });
+    });
+    expect(result.current.kana).toEqual('あいう');
+  });
+
+  test('returns kana based on user input', () => {
+    const { result } = renderHook(() => useKana());
+
+    expect(result.current.kana).toEqual('');
+    ['あ', 'あい', 'あいう', 'あ位う'].forEach(value => {
+      act(() => {
+        result.current.setKanaSource(value);
+      });
+    });
+    expect(result.current.kana).toEqual('あいう');
+  });
+});
