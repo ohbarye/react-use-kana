@@ -43,3 +43,4 @@ junit.xml
 .idea
 .rpt2_cache/
 dist/
+.parcel-cache/
