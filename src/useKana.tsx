@@ -16,17 +16,19 @@ interface KanaPair {
 const KANA_REGEX = /([ 　ぁあ-んー]+)/g;
 const NON_KANA_REGEX = /([^ 　ぁあ-んー]+)/g;
 const SPACE_REGEX = /([ 　]+)/g;
+const ALPHABET_USED_DURING_INPUT_REGEX = /[ａ-ｚ]+/g;
 
 const isKana = (value: string): boolean => !!value.match(KANA_REGEX);
 const isNonKana = (value: string): boolean => !!value.match(NON_KANA_REGEX);
 
 // Split into kanas, spaces, other characters
-// Filter out empty values
+
 const splitIntoCharGroups = (value: string): string[] => {
   return value
     .split(KANA_REGEX)
     .flatMap(str => str.split(SPACE_REGEX))
-    .filter(Boolean);
+    .map(str => str.replace(ALPHABET_USED_DURING_INPUT_REGEX, '')) // trim '山ｄ' => '山'
+    .filter(Boolean); // Filter out empty values
 };
 
 const extractDiff = (from: string[], to: string[]): Diff => {
@@ -36,34 +38,66 @@ const extractDiff = (from: string[], to: string[]): Diff => {
 };
 
 const extractPairFromDiff = ({ added, removed }: Diff): KanaPair => {
-  if (added.length === 1 && removed.length === 1 && isNonKana(added[0]) && isKana(removed[0])) {
-    // given
-    //   added: ['山田']
-    //   removed: ['やまだ']
-    // then
-    //   paid is { '山田': 'やまだ' }
-    return {
-      [added[0]]: removed[0],
-    };
-  } else if (removed.length === 2 && added.length === 1) {
+  // What's the No.?
+  // Conversion pattern: See details in https://docs.google.com/spreadsheets/d/13kMl3XQ2SG9BQTYaP-lUeVPu5I6u7Xi8Gw3H6ErYqyM/edit?usp=sharing
+
+  if (
+    added.length === 0 || // No. 1, 4, 5, 11
+    removed.length === 0 || // No. 1, 2, 3, 6
+    added.every(isKana) || // No. 3, 9, 10, 15
+    removed.every(isNonKana) // No. 4, 7, 9, 10
+  ) {
+    // For No. 7 (from nonKana to nonKana), it's going to fallback to No. 14
+    return {};
+  } else if (removed.some(isNonKana) && removed.some(isKana) && added.every(isNonKana)) {
+    // No. 14 (from mixed of kana and nonKana, to nonKana)
     // given
     //   added: ['山田']
     //   removed: ['山', 'だ']
     // then
     //   pair is { '田': 'だ' }
-    //
+    let addedString = added.join('');
+
+    return removed.reduce((resultMap: KanaMap, removedChars, i) => {
+      if (isNonKana(removedChars)) {
+        const position = addedString.indexOf(removedChars);
+        if (position === 0) {
+          addedString = addedString.slice(removedChars.length);
+        } else if (position > 0) {
+          resultMap[addedString.slice(0, position)] = removed[i - 1];
+          addedString = addedString.slice(position + 1);
+        }
+      } else if (isKana(removedChars) && i === removed.length - 1) {
+        // If the last string is kana, couple it with the remaining nonKana
+        resultMap[addedString] = removedChars;
+      }
+      return resultMap;
+    }, {});
+  } else {
+    // No. 8 (from kana to nonKana)
+    // No. 13 (from kana to mixed of kana and nonKana)
     // given
-    //   added: ['山田']
-    //   removed: ['やま', '田']
+    //   added: ['山', 'だ']
+    //   removed: ['やまだ']
     // then
     //   pair is { '山': 'やま' }
-    const nonKana = added[0].replace(new RegExp(`${removed.join('|')}`, 'g'), '');
-    const kana = removed.find(isKana) as string;
-    return {
-      [nonKana]: kana,
-    };
-  } else {
-    return {};
+    let removedString = removed.join('');
+
+    return added.reduce((resultMap: KanaMap, addedChars, i) => {
+      if (isKana(addedChars)) {
+        const position = removedString.indexOf(addedChars);
+        if (position === 0) {
+          removedString = removedString.slice(addedChars.length);
+        } else if (position > 0) {
+          resultMap[added[i - 1]] = removedString.slice(0, position);
+          removedString = removedString.slice(position + 1);
+        }
+      } else if (isNonKana(addedChars) && i === added.length - 1) {
+        // If the last string is nonKana, couple it with the remaining kana
+        resultMap[addedChars] = removedString;
+      }
+      return resultMap;
+    }, {});
   }
 };
 
@@ -76,7 +110,8 @@ const findPair = (
   if (!previousCharGroups) {
     return {};
   }
-  const pair = extractPairFromDiff(extractDiff(previousCharGroups, currentCharGroups));
+  const diff = extractDiff(previousCharGroups, currentCharGroups);
+  const pair = extractPairFromDiff(diff);
 
   if (Object.keys(pair).length !== 0) {
     // If a pair of non-kana and kana is found, memoize it for later comparison.
