@@ -1,8 +1,12 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import { useKana } from '../useKana';
 
+// What's the No.?
+// Conversion pattern: See details in https://docs.google.com/spreadsheets/d/13kMl3XQ2SG9BQTYaP-lUeVPu5I6u7Xi8Gw3H6ErYqyM/edit?usp=sharing
+
+// No. 8
 describe('when several kanas are converted to kanjis at once', () => {
-  it('returns kana based on user input', () => {
+  test('returns kana based on user input', () => {
     const { result } = renderHook(() => useKana());
 
     expect(result.current.kana).toEqual('');
@@ -15,6 +19,7 @@ describe('when several kanas are converted to kanjis at once', () => {
   });
 });
 
+// No. 14
 describe('when kanas are converted to kanjis one by one', () => {
   test('returns kana based on user input', () => {
     const { result } = renderHook(() => useKana());
@@ -27,9 +32,22 @@ describe('when kanas are converted to kanjis one by one', () => {
     });
     expect(result.current.kana).toEqual('やまだ');
   });
+
+  test('returns kana based on user input', () => {
+    const { result } = renderHook(() => useKana());
+
+    expect(result.current.kana).toEqual('');
+    ['や', 'やｍ', 'やま', '山', '山ｄ', '山だ', '山だｎ', '山だな', '山だ名', '山田名'].forEach(value => {
+      act(() => {
+        result.current.setKanaSource(value);
+      });
+    });
+    expect(result.current.kana).toEqual('やまだな');
+  });
 });
 
-describe('when kanas are converted to kanjis one by one', () => {
+// No. 7
+describe('when kanas are converted to kanjis via some kanjis', () => {
   test('returns kana based on user input', () => {
     const { result } = renderHook(() => useKana());
 
@@ -43,6 +61,7 @@ describe('when kanas are converted to kanjis one by one', () => {
   });
 });
 
+// No. 8
 describe('when kanas are converted to katakana', () => {
   test('returns kana based on user input', () => {
     const { result } = renderHook(() => useKana());
@@ -57,6 +76,7 @@ describe('when kanas are converted to katakana', () => {
   });
 });
 
+// No. 14
 describe('when conversion happened from head', () => {
   test('returns kana based on user input', () => {
     const { result } = renderHook(() => useKana());
@@ -71,6 +91,7 @@ describe('when conversion happened from head', () => {
   });
 });
 
+// No. 14
 describe('when a full-width space between characters is given', () => {
   test('returns kana based on user input', () => {
     const { result } = renderHook(() => useKana());
@@ -85,6 +106,7 @@ describe('when a full-width space between characters is given', () => {
   });
 });
 
+// No. 14
 describe('when a half-width space between characters is given', () => {
   test('returns kana based on user input', () => {
     const { result } = renderHook(() => useKana());
@@ -99,6 +121,7 @@ describe('when a half-width space between characters is given', () => {
   });
 });
 
+// No. 14
 describe('when a half-width space between characters is given', () => {
   test('returns kana based on user input', () => {
     const { result } = renderHook(() => useKana());
@@ -113,7 +136,8 @@ describe('when a half-width space between characters is given', () => {
   });
 });
 
-describe.skip('when converted to strings with kana and non-kana both', () => {
+// No. 13
+describe('when converted to strings with kana and non-kana both', () => {
   test('returns kana based on user input', () => {
     const { result } = renderHook(() => useKana());
 
@@ -136,5 +160,29 @@ describe.skip('when converted to strings with kana and non-kana both', () => {
       });
     });
     expect(result.current.kana).toEqual('あいう');
+  });
+
+  test('returns kana based on user input', () => {
+    const { result } = renderHook(() => useKana());
+
+    expect(result.current.kana).toEqual('');
+    ['あ', 'あい', '亜い'].forEach(value => {
+      act(() => {
+        result.current.setKanaSource(value);
+      });
+    });
+    expect(result.current.kana).toEqual('あい');
+  });
+
+  test('returns kana based on user input', () => {
+    const { result } = renderHook(() => useKana());
+
+    expect(result.current.kana).toEqual('');
+    ['あ', 'あい', 'あ位'].forEach(value => {
+      act(() => {
+        result.current.setKanaSource(value);
+      });
+    });
+    expect(result.current.kana).toEqual('あい');
   });
 });
