@@ -1,4 +1,7 @@
 import typescript from 'rollup-plugin-typescript2';
+import external from 'rollup-plugin-peer-deps-external'
+import commonjs from '@rollup/plugin-commonjs'
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 import pkg from './package.json';
 
 export default {
@@ -9,5 +12,13 @@ export default {
       format: 'esm',
     },
   ],
-  plugins: [typescript()],
+  plugins: [
+    typescript({
+      rollupCommonJSResolveHack: true,
+      clean: true,
+    }),
+    external(),
+    commonjs(),
+    nodeResolve({ browser: true }),
+  ],
 };
