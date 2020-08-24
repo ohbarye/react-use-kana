@@ -16,5 +16,5 @@
     "target": "es5",
     "pretty": true
   },
-  "exclude": ["node_modules", "example", "**/*-spec.ts"]
+  "exclude": ["node_modules", "example", "**/*.test.ts"]
 }
