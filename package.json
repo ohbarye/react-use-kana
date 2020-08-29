@@ -10,8 +10,8 @@
     "japanese",
     "kana"
   ],
-  "main": "dist/react-use-kana.js",
-  "module": "dist/react-use-kana.js",
+  "main": "dist/react-use-kana.cjs.js",
+  "module": "dist/react-use-kana.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist"
