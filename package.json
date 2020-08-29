@@ -1,7 +1,7 @@
 {
   "name": "react-use-kana",
   "description": "A tiny React hook to create better Japanese form",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "keywords": [
     "react",
     "react-dom",
