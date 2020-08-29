@@ -3,16 +3,26 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "parcel index.html -p 12341"
-  },
-  "devDependencies": {
-    "@types/react": "^16.9.23",
-    "@types/react-dom": "^16.9.5",
-    "parcel": "^2.0.0-alpha.3.2"
+    "start": "react-scripts start"
   },
   "dependencies": {
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
-    "react-use-kana": "../"
+    "@types/react": "^16.9.46",
+    "@types/react-dom": "^16.9.8",
+    "react": "link:../node_modules/react",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.3",
+    "react-use-kana": "link:../"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
