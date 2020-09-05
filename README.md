@@ -25,6 +25,11 @@ This is the only one hook that `react-use-kana` provides.
 - `setKanaSource: (value: string) => void`
   - A function to let `useKana` hook know a new input value so that it can derive `kana`. In general, you call this function as `onClick` callback of a text input for a name field which probably has kanjis or non-hiragana characters.
 
+This hook accepts an option to define its conversion rule.
+
+- `kataType: 'hiragana' | 'katakana'` (Optional)
+  - `'hiragana'` is default. If you'd like to convert to katakana, declare like `useKana({ kanaType: 'katakana' })`.
+
 ### Example
 
 Let's see the following simple example.

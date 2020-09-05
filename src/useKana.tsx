@@ -13,8 +13,10 @@ interface KanaPair {
   [key: string]: string;
 }
 
-const KANA_REGEX = /([ 　ぁあ-んー]+)/g;
-const NON_KANA_REGEX = /([^ 　ぁあ-んー]+)/g;
+type KanaType = 'hiragana' | 'katakana';
+
+const KANA_REGEX = /([ 　ぁあ-んーわ゙ゐ゙ゔゑ゙を゙]+)/g; // eslint-disable-line no-misleading-character-class
+const NON_KANA_REGEX = /([^ 　ぁあ-んーわ゙ゐ゙ゔゑ゙を゙]+)/g; // eslint-disable-line no-misleading-character-class
 const SPACE_REGEX = /([ 　]+)/g;
 const ALPHABET_USED_DURING_INPUT_REGEX = /[ａ-ｚ]+/g;
 
@@ -127,9 +129,13 @@ const findPair = (
   }
 };
 
-const convertCharGroupsToKana = (kanaMap: KanaMap, charGroups: string[]): string => {
+const hiraganaToKatatana = (str: string): string => {
+  return str.replace(/[\u3041-\u3096]/g, (ch: string) => String.fromCharCode(ch.charCodeAt(0) + 0x60));
+};
+
+const convertCharGroupsToKana = (kanaMap: KanaMap, charGroups: string[], kanaType: KanaType): string => {
   const knownNonKanas = Object.keys(kanaMap);
-  return charGroups
+  const hiragana = charGroups
     .map(chars => {
       return knownNonKanas
         .filter(knownNonKana => chars.indexOf(knownNonKana) >= 0)
@@ -137,9 +143,18 @@ const convertCharGroupsToKana = (kanaMap: KanaMap, charGroups: string[]): string
     })
     .filter(isKana)
     .join('');
+  if (kanaType === 'katakana') {
+    return hiraganaToKatatana(hiragana);
+  } else {
+    return hiragana;
+  }
 };
 
-export const useKana = (): {
+export const useKana = ({
+  kanaType = 'hiragana' as const,
+}: {
+  kanaType?: KanaType;
+} = {}): {
   kana: string;
   setKanaSource: (value: string) => void;
 } => {
@@ -164,7 +179,7 @@ export const useKana = (): {
         ...kanaMap,
         ...findPair([previousCharGroups, lastConvertedCharGroups], currentCharGroups, setLastConvertedCharGroups),
       };
-      const currentKana = convertCharGroupsToKana(latestKanaMap, currentCharGroups);
+      const currentKana = convertCharGroupsToKana(latestKanaMap, currentCharGroups, kanaType);
       setKana(currentKana);
       setKanaMap(latestKanaMap);
       setPreviousCharGroups(currentCharGroups);
