@@ -25,7 +25,7 @@
     "prepublish": "yarn build",
     "build": "rollup -c",
     "watch": "rollup -cw",
-    "test": "jest",
+    "test": "jest src",
     "typecheck": "tsc --noEmit",
     "publish:patch": "yarn run build && npm version patch && git push origin master && git push origin --tags && npm publish --access=public",
     "publish:minor": "yarn run build && npm version minor && git push origin master && git push origin --tags && npm publish --access=public",
