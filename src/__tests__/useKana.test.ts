@@ -11,7 +11,7 @@ describe('basic functionality', () => {
       const { result } = renderHook(() => useKana());
 
       expect(result.current.kana).toEqual('');
-      ['や', 'やｍ', 'やま', 'やまｄ', 'やまだ', '山田'].forEach(value => {
+      ['や', 'やｍ', 'やま', 'やまｄ', 'やまだ', '山田'].forEach((value) => {
         act(() => {
           result.current.setKanaSource(value);
         });
@@ -26,7 +26,7 @@ describe('basic functionality', () => {
       const { result } = renderHook(() => useKana());
 
       expect(result.current.kana).toEqual('');
-      ['や', 'やｍ', 'やま', '山', '山ｄ', '山だ', '山田'].forEach(value => {
+      ['や', 'やｍ', 'やま', '山', '山ｄ', '山だ', '山田'].forEach((value) => {
         act(() => {
           result.current.setKanaSource(value);
         });
@@ -38,7 +38,7 @@ describe('basic functionality', () => {
       const { result } = renderHook(() => useKana());
 
       expect(result.current.kana).toEqual('');
-      ['や', 'やｍ', 'やま', '山', '山ｄ', '山だ', '山だｎ', '山だな', '山だ名', '山田名'].forEach(value => {
+      ['や', 'やｍ', 'やま', '山', '山ｄ', '山だ', '山だｎ', '山だな', '山だ名', '山田名'].forEach((value) => {
         act(() => {
           result.current.setKanaSource(value);
         });
@@ -53,7 +53,7 @@ describe('basic functionality', () => {
       const { result } = renderHook(() => useKana());
 
       expect(result.current.kana).toEqual('');
-      ['や', 'やｍ', 'やま', '山', '山ｄ', '山だ', '山駄', '山打', '山田'].forEach(value => {
+      ['や', 'やｍ', 'やま', '山', '山ｄ', '山だ', '山駄', '山打', '山田'].forEach((value) => {
         act(() => {
           result.current.setKanaSource(value);
         });
@@ -68,7 +68,7 @@ describe('basic functionality', () => {
       const { result } = renderHook(() => useKana());
 
       expect(result.current.kana).toEqual('');
-      ['ｋ', 'く', 'くｒ', 'くり', 'くりｓ', 'くりす', 'クリス'].forEach(value => {
+      ['ｋ', 'く', 'くｒ', 'くり', 'くりｓ', 'くりす', 'クリス'].forEach((value) => {
         act(() => {
           result.current.setKanaSource(value);
         });
@@ -83,7 +83,7 @@ describe('basic functionality', () => {
       const { result } = renderHook(() => useKana());
 
       expect(result.current.kana).toEqual('');
-      ['ｄ', 'だ', '田', 'い田', 'いい田', '飯田'].forEach(value => {
+      ['ｄ', 'だ', '田', 'い田', 'いい田', '飯田'].forEach((value) => {
         act(() => {
           result.current.setKanaSource(value);
         });
@@ -98,7 +98,7 @@ describe('basic functionality', () => {
       const { result } = renderHook(() => useKana());
 
       expect(result.current.kana).toEqual('');
-      ['ｒ', 'り', '李', '李', '李　', '李　あ', '李　あい', '李　愛'].forEach(value => {
+      ['ｒ', 'り', '李', '李', '李　', '李　あ', '李　あい', '李　愛'].forEach((value) => {
         act(() => {
           result.current.setKanaSource(value);
         });
@@ -113,7 +113,7 @@ describe('basic functionality', () => {
       const { result } = renderHook(() => useKana());
 
       expect(result.current.kana).toEqual('');
-      ['ｒ', 'り', '李', '李', '李 ', '李 あ', '李 あい', '李 愛'].forEach(value => {
+      ['ｒ', 'り', '李', '李', '李 ', '李 あ', '李 あい', '李 愛'].forEach((value) => {
         act(() => {
           result.current.setKanaSource(value);
         });
@@ -128,7 +128,7 @@ describe('basic functionality', () => {
       const { result } = renderHook(() => useKana());
 
       expect(result.current.kana).toEqual('');
-      ['ｒ', 'り', '李', '李', '李 ', '李  ', '李  あ', '李  あい', '李  愛'].forEach(value => {
+      ['ｒ', 'り', '李', '李', '李 ', '李  ', '李  あ', '李  あい', '李  愛'].forEach((value) => {
         act(() => {
           result.current.setKanaSource(value);
         });
@@ -143,7 +143,7 @@ describe('basic functionality', () => {
       const { result } = renderHook(() => useKana());
 
       expect(result.current.kana).toEqual('');
-      ['あ', 'あい', 'あいう', '亜い卯'].forEach(value => {
+      ['あ', 'あい', 'あいう', '亜い卯'].forEach((value) => {
         act(() => {
           result.current.setKanaSource(value);
         });
@@ -155,7 +155,7 @@ describe('basic functionality', () => {
       const { result } = renderHook(() => useKana());
 
       expect(result.current.kana).toEqual('');
-      ['あ', 'あい', 'あいう', 'あ位う'].forEach(value => {
+      ['あ', 'あい', 'あいう', 'あ位う'].forEach((value) => {
         act(() => {
           result.current.setKanaSource(value);
         });
@@ -167,7 +167,7 @@ describe('basic functionality', () => {
       const { result } = renderHook(() => useKana());
 
       expect(result.current.kana).toEqual('');
-      ['あ', 'あい', '亜い'].forEach(value => {
+      ['あ', 'あい', '亜い'].forEach((value) => {
         act(() => {
           result.current.setKanaSource(value);
         });
@@ -179,7 +179,7 @@ describe('basic functionality', () => {
       const { result } = renderHook(() => useKana());
 
       expect(result.current.kana).toEqual('');
-      ['あ', 'あい', 'あ位'].forEach(value => {
+      ['あ', 'あい', 'あ位'].forEach((value) => {
         act(() => {
           result.current.setKanaSource(value);
         });
@@ -195,7 +195,7 @@ describe('katakana mode', () => {
       const { result } = renderHook(() => useKana({ kanaType: 'katakana' }));
 
       expect(result.current.kana).toEqual('');
-      ['ｒ', 'り', '李', '李', '李 ', '李  ', '李  あ', '李  あい', '李  愛'].forEach(value => {
+      ['ｒ', 'り', '李', '李', '李 ', '李  ', '李  あ', '李  あい', '李  愛'].forEach((value) => {
         act(() => {
           result.current.setKanaSource(value);
         });
@@ -209,7 +209,7 @@ describe('katakana mode', () => {
       expect(result.current.kana).toEqual('');
       [
         'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわゐゑをんがぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽぁぃぅぇぉっゃゅょわ゙ゐ゙ゔゑ゙を゙',
-      ].forEach(value => {
+      ].forEach((value) => {
         act(() => {
           result.current.setKanaSource(value);
         });
