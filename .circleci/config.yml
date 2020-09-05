@@ -63,11 +63,11 @@ jobs:
       - run:
           name: lint
           command: |
-            yarn eslint -- --format junit -o reports/junit/js-lint-results.xml
+            yarn eslint --format junit -o test-results/jest/results.xml
       - store_test_results:
-          path: react-use-kana/reports/junit
+          path: test-results
       - store_artifacts:
-          path: react-use-kana/reports/junit
+          path: test-results
 
   typecheck:
     docker:
