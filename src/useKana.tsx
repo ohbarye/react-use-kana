@@ -28,14 +28,14 @@ const isNonKana = (value: string): boolean => !!value.match(NON_KANA_REGEX);
 const splitIntoCharGroups = (value: string): string[] => {
   return value
     .split(KANA_REGEX)
-    .flatMap(str => str.split(SPACE_REGEX))
-    .map(str => str.replace(ALPHABET_USED_DURING_INPUT_REGEX, '')) // trim '山ｄ' => '山'
+    .flatMap((str) => str.split(SPACE_REGEX))
+    .map((str) => str.replace(ALPHABET_USED_DURING_INPUT_REGEX, '')) // trim '山ｄ' => '山'
     .filter(Boolean); // Filter out empty values
 };
 
 const extractDiff = (from: string[], to: string[]): Diff => {
-  const added = to.filter(x => !from.includes(x));
-  const removed = from.filter(x => !to.includes(x));
+  const added = to.filter((x) => !from.includes(x));
+  const removed = from.filter((x) => !to.includes(x));
   return { added, removed };
 };
 
@@ -136,9 +136,9 @@ const hiraganaToKatatana = (str: string): string => {
 const convertCharGroupsToKana = (kanaMap: KanaMap, charGroups: string[], kanaType: KanaType): string => {
   const knownNonKanas = Object.keys(kanaMap);
   const hiragana = charGroups
-    .map(chars => {
+    .map((chars) => {
       return knownNonKanas
-        .filter(knownNonKana => chars.indexOf(knownNonKana) >= 0)
+        .filter((knownNonKana) => chars.indexOf(knownNonKana) >= 0)
         .reduce((memo, nonKana) => memo.replace(nonKana, kanaMap[nonKana]), chars);
     })
     .filter(isKana)
