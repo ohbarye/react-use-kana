@@ -41,7 +41,7 @@
     "@babel/core": "^7.6.4",
     "@rollup/plugin-commonjs": "^16.0.0",
     "@rollup/plugin-node-resolve": "^11.0.1",
-    "@testing-library/react-hooks": "^3.2.1",
+    "@testing-library/react-hooks": "^4.0.0",
     "@types/jest": "^26.0.10",
     "@types/react": "^17.0.0",
     "@types/react-test-renderer": "^16.9.0",
