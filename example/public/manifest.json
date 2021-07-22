@@ -1,8 +1,0 @@
-{
-  "short_name": "react-use-kana",
-  "name": "react-use-kana",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
-}

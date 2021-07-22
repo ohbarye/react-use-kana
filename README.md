@@ -68,7 +68,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 `react-use-kana` doesn't provide features to handle your form's behavior (e.g. to set value to a component's state, to check if a field has been touched or not) because it's supposed to be agnostic about form library.
 
-📝 You can check more authentic example code in https://github.com/ohbarye/react-use-kana/tree/master/example.
+📝 You can check more authentic example code on https://codesandbox.io/s/react-use-kana-example-1kxuh.
 
 ## Feature
 
