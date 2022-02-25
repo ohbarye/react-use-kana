@@ -172,6 +172,7 @@ export const useKana = ({
       setKana('');
       setKanaMap({});
       setPreviousCharGroups([]);
+      setLastConvertedCharGroups([]);
     } else {
       const currentCharGroups = splitIntoCharGroups(value);
       // Create kana map that contains pairs of non-kana and kana based on the original map
