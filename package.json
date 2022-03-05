@@ -27,9 +27,9 @@
     "watch": "rollup -cw",
     "test": "jest src",
     "typecheck": "tsc --noEmit",
-    "publish:patch": "yarn run build && npm version patch && git push origin master && git push origin --tags && npm publish --access=public",
-    "publish:minor": "yarn run build && npm version minor && git push origin master && git push origin --tags && npm publish --access=public",
-    "publish:major": "yarn run build && npm version major && git push origin master && git push origin --tags && npm publish --access=public",
+    "publish:patch": "yarn run build && npm version patch && git push origin main && git push origin --tags && npm publish --access=public",
+    "publish:minor": "yarn run build && npm version minor && git push origin main && git push origin --tags && npm publish --access=public",
+    "publish:major": "yarn run build && npm version major && git push origin main && git push origin --tags && npm publish --access=public",
     "prettier": "prettier --list-different \"src/**/*.{ts,tsx}\"",
     "prettier:fix": "prettier --write \"src/**/*.{ts,tsx}\""
   },
