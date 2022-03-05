@@ -20,6 +20,19 @@ describe('basic functionality', () => {
     });
   });
 
+  describe('remove and invalid value after kana converted', () => {
+    test('return empty', () => {
+      const { result } = renderHook(() => useKana());
+      expect(result.current.kana).toEqual('');
+      ['や', 'やｍ', 'やま', 'やまｄ', 'やまだ', '山田', '', 'a'].forEach((value) => {
+        act(() => {
+          result.current.setKanaSource(value);
+        });
+      });
+      expect(result.current.kana).toEqual('');
+    });
+  });
+
   // No. 14
   describe('when kanas are converted to kanjis one by one', () => {
     test('returns kana based on user input', () => {
