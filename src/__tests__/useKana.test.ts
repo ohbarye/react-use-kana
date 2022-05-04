@@ -1,4 +1,5 @@
-import { renderHook, act } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react-hooks';
+import { describe, expect, test } from 'vitest';
 import { useKana } from '../useKana';
 
 describe('basic functionality', () => {

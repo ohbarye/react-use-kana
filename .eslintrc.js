@@ -5,7 +5,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:prettier/recommended',
   ],
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'jest'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -17,7 +17,6 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    'jest/globals': true,
   },
   settings: {
     'import/resolver': {

@@ -63,7 +63,7 @@ jobs:
       - run:
           name: lint
           command: |
-            yarn eslint --format junit -o test-results/jest/results.xml
+            yarn eslint --format junit -o test-results/lint/results.xml
       - store_test_results:
           path: test-results
       - store_artifacts:
